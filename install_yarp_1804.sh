@@ -381,22 +381,22 @@ printf "\n\n [Vizzy]: Now lets download the vizzy tactile repository\n\n"
 #Get the catkin ws
 CATKIN_WS="$(echo $DIR | awk -F "/src/vizzy" '{print $1}')"
 
-cd $CATKIN_WS/src
+#cd $CATKIN_WS/src
 
-git clone https://github.com/vislab-tecnico-lisboa/vizzy_tactile_drivers.git
-cd $CATKIN_WS
-catkin_make
-if [ $? -eq 0 ]; then
-    printf "\n [Vizzy]: Good! Vizzy tactile repository compiled!\n"
-else
-    printf "\n [Vizzy]: Oh no... an error :(\n"
-    exit
-fi
+#git clone https://github.com/vislab-tecnico-lisboa/vizzy_tactile_drivers.git
+#cd $CATKIN_WS
+#catkin_make
+#if [ $? -eq 0 ]; then
+#    printf "\n [Vizzy]: Good! Vizzy tactile repository compiled!\n"
+#else
+#    printf "\n [Vizzy]: Oh no... an error :(\n"
+ #   exit
+#fi
 
 
 printf "\n [Vizzy]: I'm now going to generate the necessary YARP messages\n"
 
-source $CATKIN_WS/devel/setup.bash
+#source $CATKIN_WS/devel/setup.bash
 
 #cd $CATKIN_WS/src/vizzy/vizzy_yarp_icub/src/modules/armGesture/include
 #yarpidl_rosmsg --out . Int16

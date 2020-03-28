@@ -64,6 +64,10 @@ sudo apt-get install -y qtbase5-dev libqt5svg5-dev libzmq3-dev libdw-dev
 
 # install behavior tree packages
 cd "$CATKIN_WS/src"
+git clone https://github.com/vislab-tecnico-lisboa/vizzy_tactile_drivers.git
+cd $CATKIN_WS
+catkin_make
+cd "$CATKIN_WS/src"
 git clone https://github.com/vislab-tecnico-lisboa/vizzy_speech.git
 git clone https://github.com/vislab-tecnico-lisboa/vizzy_behavior_trees.git
 git clone https://github.com/joao-avelino/vizzy_playground.git
@@ -76,3 +80,4 @@ git clone https://github.com/joao-avelino/BehaviorTree.CPP.git
 cd $CATKIN_WS
 catkin_make
 
+source $CATKIN_WS/devel/setup.bash
