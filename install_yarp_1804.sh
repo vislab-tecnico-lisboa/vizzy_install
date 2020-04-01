@@ -379,8 +379,13 @@ fi
 printf "\n\n [Vizzy]: Now lets download the vizzy tactile repository\n\n"
 
 #Get the catkin ws
-CATKIN_WS="$(echo $DIR | awk -F "/src/vizzy" '{print $1}')"
-
+#CATKIN_WS="$(echo $DIR | awk -F "/src/vizzy" '{print $1}')"
+CATKIN_WS=$HOME/catkin_ws
+read -p "[Vizzy]: Type your catkin workspace folder, Default: $CATKIN_WS   " NEW_CATKIN_WS
+if [ ! -z "$NEW_CATKIN_WS" ]; then
+    CATKIN_WS=$NEW_CATKIN_WS
+    echo "[Vizzy]: I'm going to compile my yarp repository at $CATKIN_WS/src/vizzy"
+fi
 #cd $CATKIN_WS/src
 
 #git clone https://github.com/vislab-tecnico-lisboa/vizzy_tactile_drivers.git
@@ -394,13 +399,14 @@ CATKIN_WS="$(echo $DIR | awk -F "/src/vizzy" '{print $1}')"
 #fi
 
 
-printf "\n [Vizzy]: I'm now going to generate the necessary YARP messages\n"
+printf "\n [Vizzy]: I'm now going to compile YARP modules\n"
 
 #source $CATKIN_WS/devel/setup.bash
 
 #cd $CATKIN_WS/src/vizzy/vizzy_yarp_icub/src/modules/armGesture/include
 #yarpidl_rosmsg --out . Int16
 #yarpidl_rosmsg --out . TactSensorArray 
+source $HOME/.bashenv
 
 cd $CATKIN_WS/src/vizzy/vizzy_yarp_icub/
 mkdir -p build && rm -rf build/* && cd build
