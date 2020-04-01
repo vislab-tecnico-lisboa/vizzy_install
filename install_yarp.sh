@@ -272,7 +272,7 @@ sudo apt-get install -y libgsl-dev
 sudo apt-get install -y libedit-dev
 sudo apt-get install -y cmake
 sudo apt-get install -y cmake-curses-gui
-sudo apt-get install qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev \
+sudo apt-get install -y qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev \
   qtdeclarative5-qtquick2-plugin qtdeclarative5-window-plugin \
   qtdeclarative5-qtmultimedia-plugin qtdeclarative5-controls-plugin \
   qtdeclarative5-dialogs-plugin libqt5svg5
@@ -377,26 +377,32 @@ fi
 printf "\n\n [Vizzy]: Now lets download the vizzy tactile repository\n\n"
 
 #Get the catkin ws
-CATKIN_WS="$(echo $DIR | awk -F "/src/vizzy" '{print $1}')"
+#CATKIN_WS="$(echo $DIR | awk -F "/src/vizzy" '{print $1}')"
+CATKIN_WS=$HOME/catkin_ws
+read -p "[Vizzy]: Type your catkin workspace folder, Default: $CATKIN_WS   " NEW_CATKIN_WS
+if [ ! -z "$NEW_CATKIN_WS" ]; then
+    CATKIN_WS=$NEW_CATKIN_WS
+    echo "[Vizzy]: I'm going to compile my yarp repository at $CATKIN_WS/src/vizzy"
+fi
 
 cd $CATKIN_WS/src
 
-git clone https://github.com/vislab-tecnico-lisboa/vizzy_tactile_drivers.git
-cd $CATKIN_WS
-catkin_make
-if [ $? -eq 0 ]; then
-    printf "\n [Vizzy]: Good! Vizzy tactile repository compiled!\n"
-else
-    printf "\n [Vizzy]: Oh no... an error :(\n"
-    exit
-fi
+#git clone https://github.com/vislab-tecnico-lisboa/vizzy_tactile_drivers.git
+#cd $CATKIN_WS
+#catkin_make
+#if [ $? -eq 0 ]; then
+#    printf "\n [Vizzy]: Good! Vizzy tactile repository compiled!\n"
+#else
+#    printf "\n [Vizzy]: Oh no... an error :(\n"
+#    exit
+#fi
 
 
-printf "\n [Vizzy]: I'm now going to generate the necessary YARP messages\n"
+printf "\n [Vizzy]: I'm now going to compile YARP interfaces for Vizzy\n"
 
 source $CATKIN_WS/devel/setup.bash
 
-cd $CATKIN_WS/src/vizzy/vizzy_yarp_icub/src/modules/armGesture/include
+#cd $CATKIN_WS/src/vizzy/vizzy_yarp_icub/src/modules/armGesture/include
 #yarpidl_rosmsg --out . Int16
 #yarpidl_rosmsg --out . TactSensorArray 
 

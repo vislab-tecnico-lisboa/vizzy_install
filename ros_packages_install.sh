@@ -38,6 +38,18 @@ sudo apt-get install -y ros-$ROS_VERSION-move-slow-and-clear
 sudo apt-get install -y ros-$ROS_VERSION-move-base-flex
 sudo apt-get install -y ros-$ROS_VERSION-global-planner
 sudo apt-get install -y git
+sudo apt-get install -y build-essential
+sudo apt-get install -y wget
+if [ $ROS_VERSION = "kinetic" ];then
+  sudo apt-get remove -y ros-$ROS_VERSION-gazebo-*
+  sudo apt-get remove -y ros-$ROS_VERSION-gazebo-ros-control
+  sudo sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
+  wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -
+  sudo apt update
+  sudo apt install -y ros-$ROS_VERSION-gazebo9*
+  sudo apt install -y ros-$ROS_VERSION-gazebo9-ros-control
+  sudo cp ./ppf_registration.h /usr/include/pcl-1.7/pcl/registration
+fi
 
 CATKIN_WS=$HOME/catkin_ws
 read -p "[Vizzy]: Type your catkin workspace folder, Default: $CATKIN_WS   " NEW_CATKIN_WS
@@ -53,10 +65,15 @@ if [ $ROS_VERSION = "melodic" ]; then
   git checkout melodic-devel
 fi
 echo "export GAZEBO_MODEL_PATH=$CATKIN_WS/src/vizzy/vizzy_gazebo:\$GAZEBO_MODEL_PATH" >> $HOME/.bashrc
-echo "source /$CATKIN_WS/devel/setup.bash" >> $HOME/.bashrc
+echo "source $CATKIN_WS/devel/setup.bash" >> $HOME/.bashrc
 source $HOME/.bashrc
 
 cd $CATKIN_WS
+if [ $ROS_VERSION = "kinetic" ];then
+    catkin_make --pkg vizzy_msgs
+    catkin_make --pkg id_selector
+fi
+
 catkin_make
 
 # install Groot requirements
