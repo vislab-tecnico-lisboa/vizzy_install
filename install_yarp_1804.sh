@@ -2,7 +2,7 @@
 
 #Joao Avelino @ VisLab - Institute for Systems and Robotics (IST-UL) 2018
 #Many thanks to Pedro Vicente, Carlos Cardoso and Plinio Moreno
-#Tested on Ubuntu 16.04
+#Tested on Ubuntu 18.04
 
 install_gazebo_yarp_plugins () {
 
@@ -349,7 +349,7 @@ else
     exit
 fi
 
-print "\nNow lets check gazebo-yarp-plugins\n"
+printf "\nNow lets check gazebo-yarp-plugins\n"
 
 
 cd $YARP_REPOSITORIES
