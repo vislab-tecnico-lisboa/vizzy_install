@@ -37,6 +37,7 @@ sudo apt-get install -y ros-$ROS_VERSION-fake-localization
 sudo apt-get install -y ros-$ROS_VERSION-move-slow-and-clear
 sudo apt-get install -y ros-$ROS_VERSION-move-base-flex
 sudo apt-get install -y ros-$ROS_VERSION-global-planner
+sudo apt-get install -y ros-$ROS_VERSION-realsense2-description
 sudo apt-get install -y git
 sudo apt-get install -y build-essential
 sudo apt-get install -y wget
