@@ -24,3 +24,8 @@ Run the scripts in the vizzy-install repostory in the following order. You will 
     source ~/.bashrc
     ./install_yarp_1804.sh
     source ~/.bashrc
+ # Issues on 18.04
+The script `ros_packages_install.sh` may fail because of mismatched versions of boost across several packages. To solve this issues:
+* Remove `signals` from file `/usr/lib/x86_64-linux-gnu/cmake/gazebo/gazebo-config.cmake` at `command find_package(Boost`
+* In the file [vizzy_tactile.cpp Line 131](https://github.com/vislab-tecnico-lisboa/vizzy_tactile_drivers/blob/master/vizzy_tactile/src/vizzy_tactile.cpp#L131), add `native_` to the variable `handler`
+* Line 48 of the file `/usr/include/yaml-cpp/node/detail/iterator.h`, change `boost::next` to `std::next`
