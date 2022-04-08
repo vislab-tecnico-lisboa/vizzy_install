@@ -20,8 +20,8 @@ source $HOME/.yarp_env
 }
 
 add_variables () {
-	    YARP_REPOSITORIES=$1 DIR=$2
-	    VIZZY_YARP_DIR="$(echo $DIR | awk -F "scripts" '{print $1}')" 
+	    YARP_REPOSITORIES=$1 CATKIN_WS=$2
+	    VIZZY_YARP_DIR=$CATKIN_WS/src/vizzy/vizzy_yarp_icub/
 	    echo "export YARP_ROOT=$YARP_REPOSITORIES/yarp" >> $HOME/.yarp_env
 	    echo "export YARP_DIR=\$YARP_ROOT/build" >> $HOME/.yarp_env
 	    echo "export YARP_ROBOT_NAME=vizzy" >> $HOME/.yarp_env
@@ -48,6 +48,15 @@ read -p "[Vizzy]: Where should I install yarp and related stuff? Default: $YARP_
 if [ ! -z "$NEW_YARP_REPOSITORIES" ]; then
   YARP_REPOSITORIES=$NEW_YARP_REPOSITORIES
   echo "[Vizzy]: I'm going to install to: $YARP_REPOSITORIES"
+fi
+
+#Get the catkin ws
+#CATKIN_WS="$(echo $DIR | awk -F "/src/vizzy" '{print $1}')"
+CATKIN_WS=$HOME/catkin_ws
+read -p "[Vizzy]: Type your catkin workspace folder, Default: $CATKIN_WS   " NEW_CATKIN_WS
+if [ ! -z "$NEW_CATKIN_WS" ]; then
+    CATKIN_WS=$NEW_CATKIN_WS
+    echo "[Vizzy]: I'm going to compile my yarp repository at $CATKIN_WS/src/vizzy"
 fi
 
 
@@ -186,7 +195,7 @@ fi
 if [ ! -f "$HOME/.yarp_env" ]; then
   echo "[Vizzy]: .yarp_env does not exist. Creating it!"
   touch $HOME/.yarp_env
-  add_variables $YARP_REPOSITORIES $DIR
+  add_variables $YARP_REPOSITORIES $CATKIN_WS
 else
   echo "[Vizzy]: .yarp_env exists..."
   echo "[Vizzy]: It has the following content:"
@@ -378,14 +387,6 @@ fi
 
 printf "\n\n [Vizzy]: Now lets download the vizzy tactile repository\n\n"
 
-#Get the catkin ws
-#CATKIN_WS="$(echo $DIR | awk -F "/src/vizzy" '{print $1}')"
-CATKIN_WS=$HOME/catkin_ws
-read -p "[Vizzy]: Type your catkin workspace folder, Default: $CATKIN_WS   " NEW_CATKIN_WS
-if [ ! -z "$NEW_CATKIN_WS" ]; then
-    CATKIN_WS=$NEW_CATKIN_WS
-    echo "[Vizzy]: I'm going to compile my yarp repository at $CATKIN_WS/src/vizzy"
-fi
 #cd $CATKIN_WS/src
 
 #git clone https://github.com/vislab-tecnico-lisboa/vizzy_tactile_drivers.git
@@ -406,7 +407,7 @@ printf "\n [Vizzy]: I'm now going to compile YARP modules\n"
 #cd $CATKIN_WS/src/vizzy/vizzy_yarp_icub/src/modules/armGesture/include
 #yarpidl_rosmsg --out . Int16
 #yarpidl_rosmsg --out . TactSensorArray 
-source $HOME/.bashenv
+source $HOME/.bashrc
 
 cd $CATKIN_WS/src/vizzy/vizzy_yarp_icub/
 mkdir -p build && rm -rf build/* && cd build
