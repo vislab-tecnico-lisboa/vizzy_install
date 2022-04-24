@@ -279,8 +279,8 @@ sudo apt-get install -y qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev \
 
 echo "[Vizzy]: Now let's install and compile a tested version of YARP"
 cd $YARP_REPOSITORIES
-git clone https://github.com/robotology/yarp.git && cd yarp
-git checkout 8efdca9a8ae994bfdd28f2ad72bcefcdce2eedba
+git clone https://github.com/vislab-tecnico-lisboa/yarp.git && cd yarp
+git checkout yarp-idl-dir-fix
 mkdir build && cd build
 cmake -DCREATE_GUIS=ON -DCREATE_DEVICE_LIBRARY_MODULES=ON -DCREATE_LIB_MATH=ON -DCREATE_OPTIONAL_CARRIERS=ON -DENABLE_YARPRUN_LOG=ON -DENABLE_yarpcar_bayer=ON -DENABLE_yarpcar_mjpeg=ON -DENABLE_yarpcar_rossrv=ON -DENABLE_yarpcar_tcpros=ON -DENABLE_yarpcar_xmlrpc=ON -DENABLE_yarpmod_serial=ON -DBUILD_SHARED_LIBS=ON ..
 make -j$(nproc)
